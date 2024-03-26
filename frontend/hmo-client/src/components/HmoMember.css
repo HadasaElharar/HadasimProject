@@ -3,22 +3,45 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    position: relative; /* נוסיף כדי לאפשר מיקום נכון של החלון הקופץ */
+    position: relative;
 }
 
 .sidebar {
-    position: fixed;
-    top: 50px;
-    left: 20px;
+    position: sticky;
+    top: 40px; /* מרחק מלמעלה */
+    display: flex;
+    
+    
+    gap: 10px;
+    right: 0; /* מיקום בצד ימין */
+    z-index: 2; /* גבוה יותר מה-header-container */
+}
+.sidebar button {
+    padding: 10px 20px;
+    background-color: #02264c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.hmo-members-heading {
-    margin-bottom: 20px;
+.sidebar button:hover {
+    background-color: white; /* רקע לבן */
+    color: #02264c; /* צבע כחול */
+}
+
+.header-container {
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+    padding: 10px;
+    z-index: 1;
 }
 
 .hmo-members-table {
     width: 100%;
-    border-collapse: collapse;
+    overflow-x: auto;
 }
 
 .hmo-members-table th,
@@ -30,6 +53,8 @@
 
 .hmo-members-table th {
     background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
 }
 
 .hmo-members-table tr:hover {
@@ -52,15 +77,15 @@
 }
 
 .vaccinations-popup {
-    position: absolute; /* נשנה ל- absolute */
-    top: 50%; /* מכוונים לאמצע */
-    left: 50%; /* מכוונים לאמצע */
-    transform: translate(-50%, -50%); /* מזיזים את החלון הקופץ למרכז */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999; /* נוסיף z-index גבוה כדי לוודא כי החלון הקופץ יופיע מעל הטבלה */
+    z-index: 999;
 }
 
 .popup-content {
@@ -69,6 +94,12 @@
     border-radius: 5px;
     max-width: 80%;
     overflow-y: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #02264c; /* מסגרת כחולה */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* הבלטה */
 }
 
 .popup-content .close {
@@ -92,4 +123,36 @@
 
 .odd-row {
     background-color: #e6e6e6;
+}
+
+.button-container button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #007bff; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    border: none; /* ללא מסגרת */
+    border-radius: 5px; /* רינוע מעוגל */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* אנימציה על השינוי בצבע רקע */
+    text-align: center;
+}
+
+.button-container button:hover {
+    background-color: #0056b3; /* צבע רקע בהבהרה כאשר העכבר מעל הכפתור */
+    text-align: center;
+}
+
+.table-button {
+    padding: 8px 16px;
+    background-color: transparent; /* רקע שקוף */
+    color: #02264c; /* צבע טקסט */
+    border: 1px solid #02264c; /* מסגרת */
+    border-radius: 5px; /* רינוע מעוגל */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* אנימציה על השינוי בצבע רקע וצבע טקסט */
+}
+
+.table-button:hover {
+    background-color: #02264c; /* צבע רקע בהבהרה כאשר העכבר מעל הכפתור */
+    color: white; /* צבע טקסט */
 }

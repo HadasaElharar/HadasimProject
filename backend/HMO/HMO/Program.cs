@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen(options => {
     options.MapType<DateOnly>(() => new OpenApiSchema
     {
         Type = "string",
-       
+        Format = "date"
     });
 });
 builder.Services.AddAutoMapper(typeof(AutoMapping));

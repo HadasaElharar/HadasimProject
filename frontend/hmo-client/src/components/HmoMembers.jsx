@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GetAllHmoMembers } from '../utils/hmoMemberUtil';
+import { Link, useNavigate } from 'react-router-dom';
+import { DeleteHmoMember, GetAllHmoMembers } from '../utils/hmoMemberUtil';
 import { GetVaccinatedById } from '../utils/vaccinatedUtil';
 import { GetSickById } from '../utils/sickUtil';
 import SettingIcon from '@mui/icons-material/Settings';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './HmoMember.css';
 
-const pages = [{ name: "Add Member", url: 'addMember' }];
+
+
 
 const HmoMembers = () => {
     const [hmoMembers, setHmoMembers] = useState([]);
@@ -15,6 +17,7 @@ const HmoMembers = () => {
     const [patients, setPatients] = useState(null);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         GetAllHmoMembers().then(res => {
@@ -26,7 +29,7 @@ const HmoMembers = () => {
         setSelectedMember(id);
         try {
             const vaccine = await GetVaccinatedById(id);
-            
+
             setVaccinations(vaccine);
             setPatients(null);
             setError("");
@@ -47,7 +50,7 @@ const HmoMembers = () => {
         }
     };
 
-    const handleButtonClick = (id) => {
+    const handleEditClick = (id) => {
         navigate(`/setting/${id}`);
     }
 
@@ -61,51 +64,80 @@ const HmoMembers = () => {
     const handleCloseErrorPopup = () => {
         setError("");
     }
+    const handleDeleteMember = async (id) => {
+        DeleteHmoMember(id).then((res) => {
+            if(res.status === 200) {
+                setHmoMembers(hmoMembers.filter(member => member.id !== id));
+                alert("נמחק בהצלחה");
+                GetAllHmoMembers().then(res => {
+                    setHmoMembers(res);
+                });
+            }
+        }).catch((err) => {
+            console.error(err);
+            setError("מחיקת החבר נכשלה. נסה שוב.");
+        });
+    }
 
     return (
+
         <div className="hmo-members-container">
             <div className="sidebar">
-                {pages.map((page, index) => (
-                    <button key={index} onClick={() => navigate(page.url)}>הוסף Hmo Member חדש</button>
-                ))}
+                {/* כפתור "הוספת משתמש חדש" */}
+                <Link to="/addMember">
+                    <button>הוספת חבר חדש</button>
+                </Link>
+                {/* כפתור "הוספת חיסון חדש" */}
+                <Link to="/addVaccination">
+                    <button>הוספה/מחיקה מחוסן</button>
+                </Link>
+                <Link to="/addSick">
+                    <button>הוספה/מחיקה חולה קורונה</button>
+                </Link>
             </div>
-            <h1 className="hmo-members-heading">טבלת משתמשים</h1>
+            <h1 className="header-container">טבלת חברים</h1>
             <table className="hmo-members-table">
                 <thead>
                     <tr>
-                        <th>מספר חבר</th>
-                        <th>מספר זהות</th>
-                        <th>שם מלא</th>
-                        <th>כתובת</th>
-                        <th>תאריך לידה</th>
-                        <th>טלפון</th>
-                        <th>נייד</th>
-                        <th>הצג חיסונים</th>
-                        <th>הצג פרטי קורונה</th>
+                        <th></th>
                         <th>הגדרות</th>
+                        <th>הצג פרטי קורונה</th>
+                        <th>הצג חיסונים</th>
+                        <th>נייד</th>
+                        <th>טלפון</th>
+                        <th>תאריך לידה</th>
+                        <th>כתובת</th>
+                        <th>שם מלא</th>
+                        <th>מספר זהות</th>
+                        <th>מספר חבר</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {hmoMembers.map((hmoMember, index) => (
+                    {hmoMembers.reverse().map((hmoMember, index) => (
                         <tr key={index} >
-                            <td>{hmoMember.id}</td>
-                            <td>{hmoMember.idCivil}</td>
-                            <td>{hmoMember.fullName}</td>
-                            <td>{hmoMember.address}</td>
-                            <td>{hmoMember.dateOfBirth}</td>
-                            <td>{hmoMember.phone || '-'}</td>
-                            <td>{hmoMember.mobile}</td>
                             <td>
-                                <button onClick={() => handleShowVaccinations(hmoMember.id)}>הצג</button>
+                                <button className="table-button" onClick={() => handleDeleteMember(hmoMember.id)}>
+                                    <DeleteIcon />
+                                </button>
                             </td>
                             <td>
-                                <button onClick={() => handleShowPatients(hmoMember.id)}>הצג</button>
-                            </td>
-                            <td>
-                                <button onClick={() => handleButtonClick(hmoMember.id)}>
+                                <button className="table-button" onClick={() => handleEditClick(hmoMember.id)}>
                                     <SettingIcon />
                                 </button>
                             </td>
+                            <td>
+                                <button className="table-button" onClick={() => handleShowPatients(hmoMember.id)}>הצג פרטי קורונה</button>
+                            </td>
+                            <td>
+                                <button className="table-button" onClick={() => handleShowVaccinations(hmoMember.id)}>הצג חיסונים</button>
+                            </td>
+                            <td>{hmoMember.mobile}</td>
+                            <td>{hmoMember.phone || '-'}</td>
+                            <td>{hmoMember.dateOfBirth}</td>
+                            <td>{hmoMember.address}</td>
+                            <td>{hmoMember.fullName}</td>
+                            <td>{hmoMember.idCivil}</td>
+                            <td>{hmoMember.id}</td>
                         </tr>
                     ))}
                 </tbody>

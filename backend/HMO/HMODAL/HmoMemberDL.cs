@@ -64,7 +64,7 @@ namespace HmoDAL
         {
             try
             {
-                HmoMember currentHmoMemberToDelete = await _hmoContext.HmoMembers.SingleOrDefaultAsync(item => item.IdCivil == id);
+                HmoMember currentHmoMemberToDelete = await _hmoContext.HmoMembers.SingleOrDefaultAsync(item => item.Id == id);
                 if (currentHmoMemberToDelete == null)
                     throw new ArgumentException($"{id} is not found");
                 _hmoContext.HmoMembers.Remove(currentHmoMemberToDelete);

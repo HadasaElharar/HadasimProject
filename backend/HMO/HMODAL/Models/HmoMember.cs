@@ -23,7 +23,7 @@ public partial class HmoMember
 
     public int Mobile { get; set; }
 
-    public int? CountVaccin { get; set; }
+    public int? CountVaccin { get; set; } = 0;
 
     public virtual ICollection<Sick> Sicks { get; set; } = new List<Sick>();
 

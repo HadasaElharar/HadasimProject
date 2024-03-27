@@ -9,9 +9,7 @@
 .sidebar {
     position: sticky;
     top: 40px; /* מרחק מלמעלה */
-    display: flex;
-    
-    
+    display: flex;   
     gap: 10px;
     right: 0; /* מיקום בצד ימין */
     z-index: 2; /* גבוה יותר מה-header-container */
@@ -29,6 +27,8 @@
 .sidebar button:hover {
     background-color: white; /* רקע לבן */
     color: #02264c; /* צבע כחול */
+    border: 1px solid #02264c;
+
 }
 
 .header-container {

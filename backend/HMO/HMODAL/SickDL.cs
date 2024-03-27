@@ -67,7 +67,7 @@ namespace HmoDAL
         {
             try
             {
-                Sick currentSickToDelete = await _hmoContext.Sicks.SingleOrDefaultAsync(item => item.Id == id);
+                Sick currentSickToDelete = await _hmoContext.Sicks.SingleOrDefaultAsync(item => item.MemberId == id);
                 if (currentSickToDelete == null)
                     throw new ArgumentException($"{id} is not found");
                 _hmoContext.Sicks.Remove(currentSickToDelete);

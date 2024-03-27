@@ -23,5 +23,8 @@ const UpdateVaccinated = async(id, HmoMember) => {
 const DeleteVaccinated = async(id) => {
     return await api.delete(`Vaccinated/${id}`).then(res => res.data);
 }
+const DeleteAllVaccinated = async(id) => {
+    return await api.delete(`Vaccinated/DeleteAllVaccinated?memberId${id}`).then(res => res.data);
+}
 
-export {GetAllVaccinateds, GetVaccinatedById, AddVaccinated, UpdateVaccinated, DeleteVaccinated}
+export {GetAllVaccinateds, GetVaccinatedById, AddVaccinated, UpdateVaccinated, DeleteVaccinated,DeleteAllVaccinated}

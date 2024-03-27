@@ -56,6 +56,11 @@ namespace Hmo.Controllers
             VaccinatedDTO isDelete = await _vaccinatedBL.DeleteVaccinated(id);
             return isDelete;
         }
+        [HttpDelete("DeleteAllVaccinated")]
+        public async Task<List<VaccinatedDTO>> DeleteAllVaccinated(int id)
+        {
+            return await _vaccinatedBL.DeleteAllVaccinated( id);
+        }
 
 
         // GET: HmoMemberController/Create

@@ -22,9 +22,11 @@ namespace HmoDAL
         }
         public async Task<Vaccinated> AddVaccinated(Vaccinated vaccinated)
         {
-            HmoMember Check = _hmoContext.HmoMembers.Where(item => item.IdCivil == vaccinated.MemberId).FirstOrDefault();
 
-            if (Check.CountVaccin < 4)
+            HmoMember Check = await _hmoContext.HmoMembers.Where(item => item.Id == vaccinated.MemberId).OrderByDescending(item => item.Id) // הוסף פרופרטי למיון, או השתמש בפרופרטי קיים
+            .FirstOrDefaultAsync();
+
+            if (Check != null && Check.CountVaccin < 4)
             {
                 try
                 {
@@ -72,7 +74,7 @@ namespace HmoDAL
         {
             try
             {
-                Vaccinated currentVaccinToDelete = await _hmoContext.Vaccinateds.SingleOrDefaultAsync(item => item.Id == id);
+                Vaccinated currentVaccinToDelete = await _hmoContext.Vaccinateds.SingleOrDefaultAsync(item => item.MemberId == id);
                 if (currentVaccinToDelete == null)
                     throw new ArgumentException($"{id} is not found");
                 _hmoContext.Vaccinateds.Remove(currentVaccinToDelete);
@@ -81,6 +83,33 @@ namespace HmoDAL
                 _hmoContext.SaveChangesAsync();
                 return currentVaccinToDelete;
                 //hththt\
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<List<Vaccinated>> DeleteAllVaccinated(int id)
+        {
+            try
+            {
+                List<Vaccinated> vaccinatedToDelete = await _hmoContext.Vaccinateds.Where(item => item.MemberId == id).ToListAsync();
+                if (vaccinatedToDelete == null || vaccinatedToDelete.Count == 0)
+                    throw new ArgumentException($"{id} is not found");
+
+                // מחק את כל החיסונים המשויכים לחבר עם ה־ID שנשלח
+                _hmoContext.Vaccinateds.RemoveRange(vaccinatedToDelete);
+
+                // עדכן את ערך ה-CountVaccin בחבר עם ה־ID שנשלח
+                HmoMember memberToUpdate = await _hmoContext.HmoMembers.FirstOrDefaultAsync(item => item.Id == id);
+                if (memberToUpdate != null)
+                {
+                    memberToUpdate.CountVaccin = 0; // אפשר גם לעדכן את הערך בהתאם לצורך
+                }
+
+                await _hmoContext.SaveChangesAsync();
+
+                return vaccinatedToDelete;
             }
             catch (Exception ex)
             {

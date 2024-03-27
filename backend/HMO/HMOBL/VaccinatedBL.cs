@@ -90,5 +90,18 @@ namespace HmoBL
                 throw;
             }
         }
+        public async Task<List<VaccinatedDTO>> DeleteAllVaccinated(int id)
+        {
+            try
+            {
+                List<Vaccinated> deletedVaccinated = await _vaccinatedDL.DeleteAllVaccinated(id);
+                return _mapper.Map<List<VaccinatedDTO>>(deletedVaccinated);
+            }
+            catch (Exception ex)
+            {
+                // Handle exception or log it
+                throw;
+            }
+        }
     }
 }

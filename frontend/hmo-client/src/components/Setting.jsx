@@ -21,7 +21,6 @@ const Setting = () => {
 
     }, [id]);
 
-
     const [editMember, setEditMember] = useState({
 
         idCivil: '',
@@ -29,24 +28,9 @@ const Setting = () => {
         address: '',
         dateOfBirth: '',
         phone: '',
-        mobile: '',
-        // chavruta: false, // נכניס את הערך המתאים מהשרת
+        mobile: '',   
     });
     const [error, setError] = useState("");
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const memberData = await GeHmoMemberById(id);
-    //             setEditMember(memberData);
-    //         } catch (error) {
-    //             console.error("Error fetching member data:", error);
-    //             setError("Failed to fetch member data. Please try again.");
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, [id]);
 
     const handleChangeMember = (e) => {
         const { name, value, type, checked } = e.target;
@@ -55,7 +39,6 @@ const Setting = () => {
             [name]: type === 'checkbox' ? checked : value
         }));
     }
-
     const handleClickSave = () => {
         UpdateHmoMember(editMember.id, editMember).then((res) => {
             if(res.status === 200) {
@@ -68,7 +51,7 @@ const Setting = () => {
         });
     }
     return (
-        <>
+        <div className='settings'>
             <h1>הגדרות</h1>
             <TextField
                 fullWidth
@@ -80,6 +63,7 @@ const Setting = () => {
                 onChange={(e) => handleChangeMember(e)}
             />
             <TextField
+                //  style={{direction:'rtl'}}
                 fullWidth
                 margin="normal"
                 id="fullName"
@@ -130,18 +114,9 @@ const Setting = () => {
                 value={editMember.mobile}
                 onChange={(e) => handleChangeMember(e)}
             />
-            {/* <div> חברותא:
-                <Checkbox
-                    id="chavruta-checkbox"
-                    name="chavruta"
-                    label="chavruta"
-                    checked={editMember.chavruta}
-                    onChange={(e) => handleChangeMember(e)}
-                />
-            </div> */}
             <span>{error}</span>
             <Button onClick={handleClickSave} variant="contained">שמירה</Button>
-        </>
+        </div>
     );
 }
 

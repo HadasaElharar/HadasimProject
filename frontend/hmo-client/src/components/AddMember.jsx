@@ -3,13 +3,7 @@ import { AddHmoMember } from '../utils/hmoMemberUtil';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-// import FormControl from '@mui/material/FormControl';
-// import InputLabel from '@mui/material/InputLabel';
-// import Select from '@mui/material/Select';
-// import MenuItem from '@mui/material/MenuItem';
-// import Checkbox from '@mui/material/Checkbox';
-// import FormGroup from '@mui/material/FormGroup';
-// import FormControlLabel from '@mui/material/FormControlLabel';
+
 import Box from '@mui/material/Box';
 
 const AddMember = () => {
@@ -41,7 +35,7 @@ const AddMember = () => {
 
         setMember(prevState => ({
             ...prevState,
-            [name]: name === 'chavruta' ? checked : value
+            [name] : value
         }));
     }
     }
@@ -57,7 +51,7 @@ const AddMember = () => {
     }
 
     return (
-        <div className="add-member-container">
+        <div className='settings'>
             <h1>הוספת חבר חדש</h1>
             <TextField
                 fullWidth

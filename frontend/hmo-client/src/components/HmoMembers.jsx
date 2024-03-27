@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DeleteHmoMember, GetAllHmoMembers } from '../utils/hmoMemberUtil';
-import { GetVaccinatedById } from '../utils/vaccinatedUtil';
-import { GetSickById } from '../utils/sickUtil';
+import { DeleteAllVaccinated,  GetVaccinatedById } from '../utils/vaccinatedUtil';
+import { DeleteSick, GetSickById } from '../utils/sickUtil';
 import SettingIcon from '@mui/icons-material/Settings';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './HmoMember.css';
+import { GetAllManufacturers } from '../utils/manufacturerUtil';
 
 
 
@@ -16,20 +17,20 @@ const HmoMembers = () => {
     const [selectedMember, setSelectedMember] = useState(null);
     const [patients, setPatients] = useState(null);
     const [error, setError] = useState("");
+   
     const navigate = useNavigate();
     
-
     useEffect(() => {
         GetAllHmoMembers().then(res => {
             setHmoMembers(res);
         });
+       
     }, []);
 
     const handleShowVaccinations = async (id) => {
         setSelectedMember(id);
         try {
             const vaccine = await GetVaccinatedById(id);
-
             setVaccinations(vaccine);
             setPatients(null);
             setError("");
@@ -37,6 +38,7 @@ const HmoMembers = () => {
             setError("Failed to fetch vaccinations data. Please try again.");
         }
     }
+    
 
     const handleShowPatients = async (id) => {
         setSelectedMember(id);
@@ -65,19 +67,20 @@ const HmoMembers = () => {
         setError("");
     }
     const handleDeleteMember = async (id) => {
-        DeleteHmoMember(id).then((res) => {
-            if(res.status === 200) {
-                setHmoMembers(hmoMembers.filter(member => member.id !== id));
-                alert("נמחק בהצלחה");
-                GetAllHmoMembers().then(res => {
-                    setHmoMembers(res);
-                });
-            }
-        }).catch((err) => {
-            console.error(err);
+        try {
+            await Promise.all([
+                DeleteSick(id).catch(() => {}),
+                DeleteAllVaccinated(id).catch(() => {}),
+                DeleteHmoMember(id)
+            ]);
+    
+            setHmoMembers(hmoMembers.filter(member => member.id !== id));
+            alert("נמחק בהצלחה");
+        } catch (error) {
+            console.error(error);
             setError("מחיקת החבר נכשלה. נסה שוב.");
-        });
-    }
+        }
+    };
 
     return (
 
@@ -88,10 +91,10 @@ const HmoMembers = () => {
                     <button>הוספת חבר חדש</button>
                 </Link>
                 {/* כפתור "הוספת חיסון חדש" */}
-                <Link to="/addVaccination">
+                <Link to="/addOrDeleteVaccine">
                     <button>הוספה/מחיקה מחוסן</button>
                 </Link>
-                <Link to="/addSick">
+                <Link to="/addOrDeletePatient">
                     <button>הוספה/מחיקה חולה קורונה</button>
                 </Link>
             </div>
@@ -101,8 +104,8 @@ const HmoMembers = () => {
                     <tr>
                         <th></th>
                         <th>הגדרות</th>
-                        <th>הצג פרטי קורונה</th>
-                        <th>הצג חיסונים</th>
+                        <th>פרטי קורונה</th>
+                        <th>חיסונים</th>
                         <th>נייד</th>
                         <th>טלפון</th>
                         <th>תאריך לידה</th>
@@ -115,6 +118,7 @@ const HmoMembers = () => {
                 <tbody>
                     {hmoMembers.reverse().map((hmoMember, index) => (
                         <tr key={index} >
+                            
                             <td>
                                 <button className="table-button" onClick={() => handleDeleteMember(hmoMember.id)}>
                                     <DeleteIcon />
@@ -148,7 +152,7 @@ const HmoMembers = () => {
                         <span className="close" onClick={handleClosePopup}>&times;</span>
                         {vaccinations.length > 0 && (
                             <>
-                                <h2>רשימת החיסונים למשתמש: {selectedMember}</h2>
+                                <h2>רשימת החיסונים לחבר: {selectedMember}</h2>
                                 <ul>
                                     {vaccinations.map((vaccination, index) => (
                                         <li key={index}> תאריך החיסון: {vaccination.vaccinDate}, יצרן: {vaccination.manufacturerId}</li>
@@ -158,10 +162,10 @@ const HmoMembers = () => {
                         )}
                         {patients && (
                             <>
-                                <h2>פרטי קורונה למשתמש: {selectedMember}</h2>
+                                <h2>פרטי קורונה לחבר: {selectedMember}</h2>
                                 <p>
                                     תאריך החולה: {patients.pssitiveDate}<br />
-                                    תאריך החלמה: {patients.recoveryDate ? patients.recoveryDate.toLocaleDateString() : 'לא נמצא'}
+                                    תאריך החלמה: {patients.recoveryDate ? patients.recoveryDate : 'לא נמצא'}
                                 </p>
                             </>
                         )}

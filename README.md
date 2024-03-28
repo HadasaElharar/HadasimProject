@@ -19,6 +19,12 @@ The project consists of two main parts:
 2. Client-side in React with Visual Studio Code: This part serves as the visual user interface of the
    system. Through it, users can access the services provided by the API, perform actions such as
    viewing and managing members, vaccination details, patient details, and more.
+   
+## Workflow
+The project was developed individually as part of my efforts to demonstrate my skills in full-stack 
+development. I utilized Visual Studio and Visual Studio Code for efficient development and
+collaboration.
+
 ## Installation and Running
 1. Instructions for installing the Web API (Server):
    * Open the project in Visual Studio.
@@ -62,10 +68,4 @@ Go to the project directory
 ```bash
  npm install
 ```
- ## Installation
  
- Install HadasimProject with npm
-```bash
-  npm install HadasimProject
-  cd HadasimProject
-```

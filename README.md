@@ -45,7 +45,7 @@ The project consists of two main parts:
 ![Edit_member_screenshot](./frontend/ScreenShot/Edit_member_screenshot.jpg)
 ![Edit_member](./frontend/ScreenShot/Edit_member.jpg)
 ![Add_member](./frontend/ScreenShot/Add_member.jpg)
-![Add_patient](./frontend/ScreenShot/Add_member.jpg)
+![Add_patient](./frontend/ScreenShot/Add_patient.jpg)
 
 ## Run Locally
 

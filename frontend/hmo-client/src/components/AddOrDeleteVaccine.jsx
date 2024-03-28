@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -6,30 +6,30 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
-import { AddVaccinated } from '../utils/vaccinatedUtil';
+import { AddVaccinated, DeleteVaccinated } from '../utils/vaccinatedUtil';
 import { GetAllManufacturers } from '../utils/manufacturerUtil';
 
 const AddOrDeleteVaccine = () => {
     const [vaccine, setVaccine] = useState({
-        id:0,
+        id: 0,
         memberId: 0,
         vaccineDate: "",
         manufacturerId: 0,
-        
+
     });
 
     const [manufacturers, setManufacturers] = useState([]);
-    const [error, setError] = useState(""); 
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleChangeVaccine = (e) => {
-        let { name, value} = e.target; 
-        let _vaccine = { ...vaccine }; 
+        let { name, value } = e.target;
+        let _vaccine = { ...vaccine };
         console.log(name + " :" + value);
         console.log(_vaccine);
         _vaccine[name] = value;
         setVaccine(_vaccine);
-       
+
     }
     useEffect(() => {
         console.log("sign up");
@@ -42,7 +42,18 @@ const AddOrDeleteVaccine = () => {
     }, []);
 
     const handleClickAddVaccine = () => {
-        AddVaccinated(vaccine).then(() => {
+        AddVaccinated(vaccine).then((res) => {
+            if (res.status === 200) {
+                alert("נוסף בהצלחה");
+                navigate('/');
+            }
+        }).catch((err) => {
+            console.error(err);
+            setError("Registration failed. Please try again.");
+        });
+    }
+    const handleClickDeleteVaccine = () => {
+        DeleteVaccinated(vaccine).then(() => {
             alert("נוסף בהצלחה");
             navigate('/');
         }).catch((err) => {
@@ -53,6 +64,7 @@ const AddOrDeleteVaccine = () => {
 
     return (
         <div className='settings'>
+            <Button onClick={handleClickDeleteVaccine} variant="contained">למחיקת מחוסן</Button>
             <h1>הוספת מחוסן חדש</h1>
             <TextField
                 fullWidth
@@ -72,7 +84,7 @@ const AddOrDeleteVaccine = () => {
                 value={vaccine.memberId}
                 onChange={handleChangeVaccine}
             />
-            
+
             <TextField
                 fullWidth
                 margin="normal"
@@ -95,7 +107,7 @@ const AddOrDeleteVaccine = () => {
                         value={vaccine.manufacturerId}
                         name="manufacturerId"
                         onChange={handleChangeVaccine}>
-                        {manufacturers.map((manufacturer) =>{
+                        {manufacturers.map((manufacturer) => {
                             return (
                                 <MenuItem
                                     key={manufacturer.id}
@@ -106,10 +118,10 @@ const AddOrDeleteVaccine = () => {
                             );
                         })}
                     </Select>
-                    </FormControl>
-                    </div>
-            <span>{error}</span>
+                </FormControl>
+            </div>
             <Button onClick={handleClickAddVaccine} variant="contained">הוספה</Button>
+            <span>{error}</span>
         </div>
     );
 };

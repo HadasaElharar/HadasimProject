@@ -42,9 +42,11 @@ const AddOrDeletePatient = () => {
     // }, []);
 
     const handleClickAddPatient = () => {
-        AddSick(patient).then(() => {
-            alert("נוסף בהצלחה");
-            navigate('/');
+        AddSick(patient).then((res) => {
+            if (res.status === 200) {
+                alert("נוסף בהצלחה");
+                navigate('/');
+            }
         }).catch((err) => {
             console.error(err);
             setError("Registration failed. Please try again.");

@@ -42,8 +42,8 @@ namespace Hmo.Controllers
         [HttpPost]
         public async Task<ActionResult<SickDTO>> AddSick([FromBody] SickDTO sickDTO)
         {
-            var newSick = await _sickBL.AddSick(sickDTO);
-            return CreatedAtAction(nameof(GetSickById), new { id = newSick.Id }, newSick);
+            SickDTO newSick = await _sickBL.AddSick(sickDTO);
+            return newSick;
         }
 
         [HttpPut("{id}")]

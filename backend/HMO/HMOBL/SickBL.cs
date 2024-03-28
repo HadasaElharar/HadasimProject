@@ -15,8 +15,8 @@ namespace HmoBL
 
         public SickBL(ISickDL sickDL, IMapper mapper)
         {
-            _sickDL = sickDL ?? throw new ArgumentNullException(nameof(sickDL));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _sickDL = sickDL;
+            _mapper = mapper;
         }
 
         public async Task<List<SickDTO>> GetAllSick()

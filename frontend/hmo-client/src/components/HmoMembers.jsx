@@ -85,6 +85,7 @@ const HmoMembers = () => {
     return (
 
         <div className="hmo-members-container">
+            <div className='sidebar-container div'>
             <div className="sidebar">
                 {/* כפתור "הוספת משתמש חדש" */}
                 <Link to="/addMember">
@@ -98,12 +99,13 @@ const HmoMembers = () => {
                     <button>הוספה/מחיקה חולה קורונה</button>
                 </Link>
             </div>
+            </div>
             <h1 className="header-container">טבלת חברים</h1>
             <table className="hmo-members-table">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>הגדרות</th>
+                        <th>עריכת חבר</th>
                         <th>פרטי קורונה</th>
                         <th>חיסונים</th>
                         <th>נייד</th>

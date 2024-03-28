@@ -52,7 +52,7 @@ const Setting = () => {
     }
     return (
         <div className='settings'>
-            <h1>הגדרות</h1>
+            <h1>עריכת חבר</h1>
             <TextField
                 fullWidth
                 margin="normal"

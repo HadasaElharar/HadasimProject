@@ -52,6 +52,7 @@ collaboration.
 ![Edit_member](./frontend/ScreenShot/Edit_member.jpg)
 ![Add_member](./frontend/ScreenShot/Add_member.jpg)
 ![Add_patient](./frontend/ScreenShot/Add_patient.jpg)
+![Add_vaccinated](./frontend/ScreenShot/add_vaccinated.jpg)
 
 ## Run Locally
 

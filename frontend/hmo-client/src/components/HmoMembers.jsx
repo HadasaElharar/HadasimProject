@@ -6,7 +6,7 @@ import { DeleteSick, GetSickById } from '../utils/sickUtil';
 import SettingIcon from '@mui/icons-material/Settings';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './HmoMember.css';
-import { GetAllManufacturers } from '../utils/manufacturerUtil';
+// import { GetAllManufacturers } from '../utils/manufacturerUtil';
 
 
 
@@ -17,6 +17,8 @@ const HmoMembers = () => {
     const [selectedMember, setSelectedMember] = useState(null);
     const [patients, setPatients] = useState(null);
     const [error, setError] = useState("");
+    // const[vaccinatedToDelets,setVaccinatedToDelete]=useState([]);
+    // const[patientToDelete, setPatientToDelete]=useState();
    
     const navigate = useNavigate();
     
@@ -37,7 +39,7 @@ const HmoMembers = () => {
         } catch (error) {
             setError("Failed to fetch vaccinations data. Please try again.");
         }
-    }
+    };
     
 
     const handleShowPatients = async (id) => {
@@ -67,10 +69,11 @@ const HmoMembers = () => {
         setError("");
     }
     const handleDeleteMember = async (id) => {
+
         try {
             await Promise.all([
-                DeleteSick(id).catch(() => {}),
                 DeleteAllVaccinated(id).catch(() => {}),
+                DeleteSick(id).catch(() => {}),
                 DeleteHmoMember(id)
             ]);
     
@@ -171,6 +174,7 @@ const HmoMembers = () => {
                                 </p>
                             </>
                         )}
+                        
                     </div>
                 </div>
             )}

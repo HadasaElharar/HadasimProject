@@ -1,11 +1,11 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
+// import MenuItem from '@mui/material/MenuItem';
+// import InputLabel from '@mui/material/InputLabel';
+// import Select from '@mui/material/Select';
+// import FormControl from '@mui/material/FormControl';
 import { AddSick } from '../utils/sickUtil';
 
 
@@ -42,11 +42,9 @@ const AddOrDeletePatient = () => {
     // }, []);
 
     const handleClickAddPatient = () => {
-        AddSick(patient).then((res) => {
-            if (res.status === 200) {
+        AddSick(patient).then(() => {
                 alert("נוסף בהצלחה");
                 navigate('/');
-            }
         }).catch((err) => {
             console.error(err);
             setError("Registration failed. Please try again.");

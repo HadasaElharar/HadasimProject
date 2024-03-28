@@ -22,7 +22,7 @@ const AddMember = () => {
     const navigate = useNavigate();
 
     const handleChangeMember = (e) => {
-        const { name, value, checked } = e.target;
+        const { name, value} = e.target;
         if (name === 'dateOfBirth') {
             // ממירים את התאריך לתבנית YYYY-MM-DD
             const formattedDate = new Date(value).toISOString().split('T')[0];

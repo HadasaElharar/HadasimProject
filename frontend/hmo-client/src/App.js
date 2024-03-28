@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, Routes,RouterProvider } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import HmoMembers from './components/HmoMembers';
 
 import AddMember from './components/AddMember';

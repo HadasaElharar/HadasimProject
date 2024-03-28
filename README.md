@@ -1,4 +1,4 @@
-HMO Management System
+## HMO Management System
 
 This project is a web-based application designed to manage the operations of a Health Maintenance Organization (HMO).
 The system provides a comprehensive platform for managing HMO members, their medical records, vaccinations, and COVID-19-related information.
@@ -19,6 +19,12 @@ The project consists of two main parts:
 2. Client-side in React with Visual Studio Code: This part serves as the visual user interface of the
    system. Through it, users can access the services provided by the API, perform actions such as
    viewing and managing members, vaccination details, patient details, and more.
+   
+## Workflow
+The project was developed individually as part of my efforts to demonstrate my skills in full-stack 
+development. I utilized Visual Studio and Visual Studio Code for efficient development and
+collaboration.
+
 ## Installation and Running
 1. Instructions for installing the Web API (Server):
    * Open the project in Visual Studio.
@@ -46,6 +52,7 @@ The project consists of two main parts:
 ![Edit_member](./frontend/ScreenShot/Edit_member.jpg)
 ![Add_member](./frontend/ScreenShot/Add_member.jpg)
 ![Add_patient](./frontend/ScreenShot/Add_patient.jpg)
+![Add_vaccinated](./frontend/ScreenShot/add_vaccinated.jpg)
 
 ## Run Locally
 
@@ -62,10 +69,4 @@ Go to the project directory
 ```bash
  npm install
 ```
- ## Installation
  
- Install HadasimProject with npm
-```bash
-  npm install HadasimProject
-  cd HadasimProject
-```

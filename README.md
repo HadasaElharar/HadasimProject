@@ -41,11 +41,11 @@ The project consists of two main parts:
 
 ## Screenshots
 
-![homePage](.ScreenShot/Homepage.jpg)
-![Edit_member_screenshot](.ScreenShot/Edit_member_screenshot.jpg)
-![Edit_member](.ScreenShot/Edit_member.jpg)
-![Add_member](.ScreenShot/Add_member.jpg)
-![Add_patient](.ScreenShot/Add_patient.jpg)
+![homePage](./frontend/ScreenShot/Homepage.jpg)
+![Edit_member_screenshot](./frontend/ScreenShot/Edit_member_screenshot.jpg)
+![Edit_member](./frontend/ScreenShot/Edit_member.jpg)
+![Add_member](./frontend/ScreenShot/Add_member.jpg)
+![Add_patient](./frontend/ScreenShot/Add_patient.jpg)
 
 ## Run Locally
 

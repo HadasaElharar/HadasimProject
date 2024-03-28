@@ -59,6 +59,7 @@ const AddOrDeletePatient = () => {
                 margin="normal"
                 id="id"
                 name="id"
+                type='number'
                 label="מספר חולה"
                 value={patient.id}
                 onChange={handleChangePatient}
@@ -67,6 +68,7 @@ const AddOrDeletePatient = () => {
                 fullWidth
                 margin="normal"
                 id="memberId"
+                type='number'
                 name="memberId"
                 label="מספר חבר"
                 value={patient.memberId}

@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 
 const AddMember = () => {
     const [member, setMember] = useState({
-        id:0,
+        id: 0,
         idCivil: 0,
         fullName: "",
         address: "",
@@ -18,11 +18,11 @@ const AddMember = () => {
         chavruta: false,
     });
 
-    const [error, setError] = useState(""); 
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleChangeMember = (e) => {
-        const { name, value} = e.target;
+        const { name, value } = e.target;
         if (name === 'dateOfBirth') {
             // ממירים את התאריך לתבנית YYYY-MM-DD
             const formattedDate = new Date(value).toISOString().split('T')[0];
@@ -33,11 +33,11 @@ const AddMember = () => {
             }));
         } else {
 
-        setMember(prevState => ({
-            ...prevState,
-            [name] : value
-        }));
-    }
+            setMember(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
     }
 
     const handleClickAddMember = () => {
@@ -58,6 +58,7 @@ const AddMember = () => {
                 margin="normal"
                 id="id"
                 name="id"
+                type="number"
                 label="מספר חבר"
                 value={member.id}
                 onChange={handleChangeMember}
@@ -65,6 +66,7 @@ const AddMember = () => {
             <TextField
                 fullWidth
                 margin="normal"
+                type="number"
                 id="idCivil"
                 name="idCivil"
                 label="מספר אזרחי"
@@ -75,6 +77,7 @@ const AddMember = () => {
                 fullWidth
                 margin="normal"
                 id="fullName"
+                type='text'
                 name="fullName"
                 label="שם מלא"
                 value={member.fullName}
@@ -85,6 +88,7 @@ const AddMember = () => {
                 margin="normal"
                 id="address"
                 name="address"
+                type='text'
                 label="כתובת"
                 value={member.address}
                 onChange={handleChangeMember}
@@ -109,8 +113,17 @@ const AddMember = () => {
                 name="phone"
                 label="טלפון"
                 type="tel"
+                inputMode="numeric"
+                placeholder="enter phone"
                 value={member.phone}
-                onChange={handleChangeMember}
+                onChange={(e) => {
+                    const input = e.target.value;
+                    const numbers = /^[0-9]+$/;
+                    if (input === '' || input.match(numbers)) {
+                        handleChangeMember(e);
+                    }
+                }}
+
             />
             <TextField
                 fullWidth
@@ -120,7 +133,13 @@ const AddMember = () => {
                 label="נייד"
                 type="tel"
                 value={member.mobile}
-                onChange={handleChangeMember}
+                onChange={(e) => {
+                    const input = e.target.value;
+                    const numbers = /^[0-9]+$/;
+                    if (input === '' || input.match(numbers)) {
+                        handleChangeMember(e);
+                    }
+                }}
             />
             {/* <FormControlLabel
                 control={<Checkbox checked={member.chavruta} onChange={handleChangeMember} name="chavruta" />}

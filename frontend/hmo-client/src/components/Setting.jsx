@@ -18,7 +18,6 @@ const Setting = () => {
             setError("Failed to fetch member data. Please try again.");
         })
 
-
     }, [id]);
 
     const [editMember, setEditMember] = useState({
@@ -57,6 +56,7 @@ const Setting = () => {
                 fullWidth
                 margin="normal"
                 id="idCivil"
+                type='number'
                 name="idCivil"
                 label="מספר אזרחי"
                 value={editMember.idCivil}
@@ -67,6 +67,7 @@ const Setting = () => {
                 fullWidth
                 margin="normal"
                 id="fullName"
+                type='number'
                 name="fullName"
                 label="שם מלא"
                 value={editMember.fullName}
@@ -76,6 +77,7 @@ const Setting = () => {
                 fullWidth
                 margin="normal"
                 id="address"
+                type='text'
                 name="address"
                 label="כתובת"
                 value={editMember.address}
@@ -102,7 +104,13 @@ const Setting = () => {
                 label="טלפון"
                 type="tel"
                 value={editMember.phone}
-                onChange={(e) => handleChangeMember(e)}
+                onChange={(e) => {
+                    const input = e.target.value;
+                    const numbers = /^[0-9]+$/;
+                    if (input === '' || input.match(numbers)) {
+                        handleChangeMember(e);
+                    }
+                }}
             />
             <TextField
                 fullWidth
@@ -112,7 +120,13 @@ const Setting = () => {
                 label="נייד"
                 type="tel"
                 value={editMember.mobile}
-                onChange={(e) => handleChangeMember(e)}
+                onChange={(e) => {
+                    const input = e.target.value;
+                    const numbers = /^[0-9]+$/;
+                    if (input === '' || input.match(numbers)) {
+                        handleChangeMember(e);
+                    }
+                }}
             />
             <span>{error}</span>
             <Button onClick={handleClickSave} variant="contained">שמירה</Button>

@@ -76,6 +76,7 @@ const HmoMembers = () => {
                 DeleteSick(id).catch(() => {}),
                 DeleteHmoMember(id)
             ]);
+            
     
             setHmoMembers(hmoMembers.filter(member => member.id !== id));
             alert("נמחק בהצלחה");

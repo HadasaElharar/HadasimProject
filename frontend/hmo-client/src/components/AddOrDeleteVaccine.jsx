@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
-import { AddVaccinated, DeleteVaccinated } from '../utils/vaccinatedUtil';
+import { AddVaccinated } from '../utils/vaccinatedUtil';
 import { GetAllManufacturers } from '../utils/manufacturerUtil';
 
 const AddOrDeleteVaccine = () => {
@@ -52,24 +52,17 @@ const AddOrDeleteVaccine = () => {
             setError("Registration failed. Please try again.");
         });
     }
-    const handleClickDeleteVaccine = () => {
-        DeleteVaccinated(vaccine).then(() => {
-            alert("נוסף בהצלחה");
-            navigate('/');
-        }).catch((err) => {
-            console.error(err);
-            setError("Registration failed. Please try again.");
-        });
-    }
+    
 
     return (
         <div className='settings'>
-            <Button onClick={handleClickDeleteVaccine} variant="contained">למחיקת מחוסן</Button>
+           
             <h1>הוספת מחוסן חדש</h1>
             <TextField
                 fullWidth
                 margin="normal"
                 id="id"
+                type='number'
                 name="id"
                 label="מספר חיסון"
                 value={vaccine.id}
@@ -79,6 +72,7 @@ const AddOrDeleteVaccine = () => {
                 fullWidth
                 margin="normal"
                 id="memberId"
+                type='number'
                 name="memberId"
                 label="מספר חבר"
                 value={vaccine.memberId}

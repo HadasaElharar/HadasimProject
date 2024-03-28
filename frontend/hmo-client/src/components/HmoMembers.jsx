@@ -122,7 +122,7 @@ const HmoMembers = () => {
                         <tr key={index} >
                             
                             <td>
-                                <button className="table-button" onClick={() => handleDeleteMember(hmoMember.id)}>
+                                <button className="table-button" title='למחוק חבר' onClick={() => handleDeleteMember(hmoMember.id)}>
                                     <DeleteIcon />
                                 </button>
                             </td>

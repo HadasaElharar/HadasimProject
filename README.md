@@ -3,7 +3,7 @@
 This project is a web-based application designed to manage the operations of a Health Maintenance Organization (HMO).
 The system provides a comprehensive platform for managing HMO members, their medical records, vaccinations, and COVID-19-related information.
 
-Start the server
+## Start the server
 
 ```bash
   npm run start
